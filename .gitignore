@@ -5,3 +5,8 @@ __pycache__/
 soc-sign-Slashdot081106.txt
 fig7a_R1_matplotlib.pdf
 .DS_Store
+*.pdf
+*.pptx
+*.json
+*.png
+generate_fig7_ppt_R1.py
