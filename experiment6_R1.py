@@ -22,7 +22,7 @@ from revision_analysis import (scc_info, wcc_info, signed_triangle_balance, comp
                                local_search_partition, spectral_summary)
 
 def params_exact(A, d, theta, leader, h=1):
-    """Convergence parameters of Theorem 3 with Z_min = min_i Z_i and Z_max = max_i Z_i."""
+    """Convergence parameters g, sigma of Theorem 3, eqs. (16)-(17), with Z_min = min_i Z_i over the followers."""
     n = A.shape[0]; ratio = d[None, :] / d[:, None]; mask = A != 0; np.fill_diagonal(mask, False)
     At = np.where(mask, A * ratio, 0.0); Z = At.sum(axis=1)
     F = [i for i in range(n) if i != leader]
@@ -35,7 +35,7 @@ def params_exact(A, d, theta, leader, h=1):
     Zmin, Zmax = Z[F].min(), Z[F].max()
     nonpos = int((Z[F] <= 0).sum())
     g = 1 + 2 * (1 - thmin) * beta * gmax * Ntil_max / Zmin if Zmin > 0 else np.inf
-    sigma = min(thmin, (1 - thmax) * alpha * gmin / Zmax) if Zmin > 0 else 0.0
+    sigma = min(thmin, (1 - thmax) * alpha * gmin / Zmin) if Zmin > 0 else 0.0
     Qt = np.where(mask, At / np.where(Z[:, None] != 0, Z[:, None], 1), 0.0)
     Gam = np.diag(th) + (np.eye(n) - np.diag(th)) @ Qt; Gam[leader] = 0; Gam[leader, leader] = 1
     Phi = Gam[np.ix_(F, F)]
