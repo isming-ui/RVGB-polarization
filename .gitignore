@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.log
+*.gz
+soc-sign-Slashdot081106.txt
+fig7a_R1_matplotlib.pdf
+.DS_Store
